@@ -1,0 +1,586 @@
+RED WINE EDA
+BY AMONAH ALI
+
+```{r echo=FALSE,warning=FALSE, message=FALSE, packages}
+chooseCRANmirror(graphics=FALSE, ind=1)
+knitr::opts_chunk$set(echo = TRUE)
+# Load all of the packages that you end up using in your analysis in this code
+# chunk.
+# Notice that the parameter "echo" was set to FALSE for this code chunk. This
+# prevents the code from displaying in the knitted HTML output. You should set
+# echo=FALSE for all code chunks in your file, unless it makes sense for your
+# report to show the code that generated a particular plot.
+
+# The other parameters for "message" and "warning" should also be set to FALSE
+# for other code chunks once you have verified that each plot comes out as you
+# want it to. This will clean up the flow of your report.
+
+#install.packages("lmtest", repos = "http://cran.us.r-project.org")
+#install.packages("ggplot2")
+library(ggplot2)
+
+```
+
+
+```{r echo=FALSE, Load_the_Data,warning=FALSE,message=FALSE}
+# Load the data in df varaible
+df <- read.csv('wineQualityReds.csv')
+```
+
+
+Red wine dataset is being analysed to find the variable that has the most affecting on the wine quality
+
+# Univariate Plots Section
+
+```{r echo=FALSE, Univariate_Plots}
+# return the dimension of the dataset
+dim(df)
+```
+
+```{r echo=FALSE}
+# sum of all variables in the dataset
+summary(df)
+```
+
+```{r echo=FALSE}
+# return the first rows in the dataset
+head(df)
+```
+
+```{r echo=FALSE}
+#names of all variables in the dataset
+names(df)
+```
+
+
+```{r echo=FALSE}
+# display the plot of main feature in the dataset that is quality
+ggplot(data=df, aes(x=quality)) +
+  geom_bar()
+```
+
+```{r echo=FALSE}
+# simmarize the quality variable
+summary(df$quality)
+```
+
+quality values is distributed between 3 and 8 also a mean of 5.6 and a median of 6
+
+looking at all other variable to see if it is affect the quality or not
+
+```{r echo=FALSE}
+# display the plot of volatile.acidity
+ggplot(aes(x=volatile.acidity),data=df) +
+  geom_histogram(binwidth=0.02)
+```
+```{r echo=FALSE}
+# simmarize the volatile.acidity variable
+summary(df$volatile.acidity)
+```
+
+volatile.acidity values is distributed between 0.12 and 1.58 also a mean of 0.527 and a median of 0.520
+
+```{r echo=FALSE}
+# display the plot of pH
+ggplot(aes(x=pH),data=df) +
+   geom_histogram(binwidth=0.03)
+```
+
+```{r echo=FALSE}
+# simmarize the pH variable
+summary(df$pH)
+```
+
+pH values is distributed between 2.7 and 4.01 also a mean of 3.311 and a median of 3.310
+
+```{r echo=FALSE}
+# display the plot of residual.sugar
+ggplot(aes(x=residual.sugar),data=df) +
+  scale_x_log10(breaks=seq(0,15,2)) +
+  geom_histogram(binwidth=0.03)+
+  geom_bar()
+```
+
+```{r echo=FALSE}
+# simmarize the residual.sugar variable
+summary(df$residual.sugar)
+```
+
+residual.sugar values is distributed between 0.900 and 15.500  also a mean of 2.539 and a median of 2.200
+
+```{r echo=FALSE}
+# display the plot of density
+ggplot(aes(x=density),data=df) +
+  geom_histogram(binwidth=0.0003)
+```
+
+
+```{r echo=FALSE}
+# simmarize the density variable
+summary(df$density)
+```
+
+density values is distributed between 0.9901 and 1.0037  also a mean of 0.9967 and a median of 0.9968
+
+```{r echo=FALSE}
+# display the plot of fixed.acidity
+ggplot(aes(x=fixed.acidity),data=df) +
+   geom_histogram(binwidth=0.2)
+```
+
+```{r echo=FALSE}
+# simmarize the fixed.acidity variable
+summary(df$fixed.acidity)
+```
+
+fixed.acidity values is distributed between 4.60 and 15.90  also a mean of 8.32 and a median of 7.90
+
+```{r echo=FALSE}
+# display the plot of free.sulfur.dioxide
+ggplot(aes(x=free.sulfur.dioxide),data=df) +
+  geom_histogram(binwidth=1)
+```
+
+```{r echo=FALSE}
+# simmarize the free.sulfur.dioxide variable
+summary(df$free.sulfur.dioxide)
+```
+
+free.sulfur.dioxide values is distributed between 1 and 72.00  also a mean of 15.87 and a median of 14.00
+
+```{r echo=FALSE}
+# display the plot of sulphates
+ggplot(aes(x=sulphates),data=df) +
+  geom_histogram(binwidth=0.02)
+```
+
+```{r echo=FALSE}
+# simmarize the sulphates variable
+summary(df$sulphates)
+```
+
+sulphates values is distributed between 0.3300 and 2.0000  also a mean of 0.6581 and a median of 0.6200
+
+```{r echo=FALSE}
+# display the plot of alcohol
+ggplot(aes(x=alcohol),data=df) +
+  xlab("alcohol (%)") +
+  geom_histogram(binwidth=0.2)
+```
+
+
+```{r echo=FALSE}
+# simmarize the alcohol variable
+summary(df$alcohol)
+```
+
+alcohol values is distributed between 8.40 and 14.90  also a mean of 10.42 and a median of 10.20
+
+```{r echo=FALSE}
+# display the plot of total.sulfur.dioxide
+ggplot(aes(x=total.sulfur.dioxide),data=df) +
+  geom_histogram(binwidth=3)
+```
+```{r echo=FALSE}
+# simmarize the total.sulfur.dioxide variable
+summary(df$total.sulfur.dioxide)
+```
+
+total.sulfur.dioxide values is distributed between 6.00 and 289.00  also a mean of 46.47 and a median of 38.00
+
+```{r echo=FALSE}
+# display the plot of chlorides
+ggplot(aes(x=chlorides),data=df) +
+   geom_histogram(binwidth=0.02)
+```
+
+```{r echo=FALSE}
+# display the plot of chlorides
+ggplot(aes(x=chlorides), data=df) +
+  coord_cartesian(xlim=c(0.04,0.14)) +
+  geom_histogram(binwidth=0.002) 
+```
+
+
+```{r echo=FALSE}
+# simmarize the chlorides variable
+summary(df$chlorides)
+```
+
+chlorides values is distributed between 0.01200 and 0.61100  also a mean of 0.08747 and a median of 0.07900
+
+```{r echo=FALSE}
+# display the plot of citric.acid
+ggplot(aes(x=citric.acid),data=df) +
+   geom_histogram(binwidth=0.03)
+```
+
+```{r echo=FALSE}
+# simmarize the citric.acid variable
+summary(df$citric.acid)
+```
+
+citric.acid values is distributed between 0 and 1  also a mean of 0.271 and a median of 0.260
+
+# Univariate Analysis
+
+### What is the structure of your dataset?
+1599 of wine data and a number of 12 variables, the main variable is quality with a range of 3 to 8 but it shown that there is a number of samples with a range between 5 and 6 
+also most diagrams is right skew.
+### What is/are the main feature(s) of interest in your dataset?
+the main feature is quality because wine is being catogrized for wine taker based on its quality level either it is  heigh, average and low and their are other variables that influnce the quality.
+### What other features in the dataset do you think will help support your \investigation into your feature(s) of interest?
+their is a number of features that will help in the investigation such as Alcohol, citric acid, volatile acidity, sulphates
+### Did you create any new variables from existing variables in the dataset?
+wine level variable is being created for knowing the level of the wine quality and it is divided into 3 level high, average and low
+
+
+```{r echo=FALSE}
+# changing quality varaible to an ordered 
+df$quality <- factor(df$quality, ordered = T)
+```
+
+```{r echo=FALSE}
+# quality level is being created based on conditions
+df$quality.lvl <- ifelse(df$quality < 5, 'low',
+ifelse(df$quality< 7, 'average', 'high'))
+```
+
+```{r echo=FALSE}
+#dispaly the contents of variables
+str(df)
+```
+```{r echo=FALSE}
+#plot the quality level 
+ggplot(aes(x=quality.lvl),data=df) +
+  geom_bar()
+```
+
+the plot displays the quality level and that a large number of the quality level is at average 
+
+### Of the features you investigated, were there any unusual distributions? \Did you perform any operations on the data to tidy, adjust, or change the form \of the data? If so, why did you do this?
+the data is tidy and only a new column were added that is wine level for the quality of the wine also x variable were deleted for not being useful in the dataset
+
+# Bivariate Plots Section
+
+the first factor to look at is the alcohol after that others like volatile acidity, sulphates and citric acid will be look at also look at the correlation of factors
+
+```{r echo=FALSE}
+#plot the relationship between alcohol and quality
+ggplot(aes(x=quality,y=alcohol),data=df)+
+    geom_jitter(alpha = 1/4) +
+    geom_point(color='blue')+
+    labs(x = 'Quality',y = 'Alcohol (%)'
+       ,title = 'Relationship between alcohol and quality')
+```
+
+
+```{r echo=FALSE}
+#plot the relationship between alcohol and quality and show a line trend 
+ggplot(aes(x=quality,y=alcohol, group = 1),data=df)+
+    geom_point(color='red',alpha=1/2)+
+    geom_jitter(alpha = 1/4) +
+    geom_line(stat='summary',fun.y = 'mean',color='blue')+
+    labs(x = 'Quality',y = 'Alcohol (%)'
+    ,title = 'Wine Qaulity and Alchohol Relationship')
+```
+
+```{r echo=FALSE}
+#order the quality level variable
+df$quality.lvl = factor(df$quality.lvl,c("low","average","high"))
+```
+
+```{r echo=FALSE}
+#plot the relationship between alcohol and quality 
+ggplot(aes(x=quality.lvl, y=alcohol),data=df) + 
+  geom_jitter(alpha = 1/3) +
+  geom_boxplot(color = 'red')+
+  labs(x = 'Wine level',y = 'Alcohol (%)'
+  ,title = 'Wine level and Alchohol Relationship')
+```
+
+above plots shows that higher alcohol makes a better wine quality but a look at  other variables relationships with quality is must because not only alcohol affect the quality 
+
+```{r echo=FALSE}
+#plot the relationship between quality.lvl and sulphates 
+ggplot(aes(x=quality.lvl, y=sulphates),data=df) +
+       geom_jitter(alpha = 1/3) +
+       geom_boxplot(color = 'red')+
+       labs(x = 'Wine level',y = 'Sulphates'
+       ,title = 'Wine level and Sulphatesy Relationship')
+```
+
+the quality increase when the sulphates increase but it also shows that at the high level of sulphates it negativly affect the quality
+
+```{r echo=FALSE}
+#plot the relationship between quality.lvl and volatile.acidity 
+ggplot(aes(x=quality.lvl, y=volatile.acidity),data=df) +
+       geom_jitter(alpha = 1/3) +
+       geom_boxplot(color = 'red')+
+       labs(x = 'Wine level',y = 'volatile acidity'
+       ,title = 'Wine level and volatile acidity Relationship')
+```
+
+the plot shows that volatile.acidity decreese with quality increasing so it is an Inverse relationship 
+
+```{r echo=FALSE}
+#plot the relationship between quality.lvl and citric.acid 
+ggplot( aes(x=quality.lvl, y=citric.acid),data=df) + 
+       geom_jitter(alpha = 1/3) +
+       geom_boxplot(color = 'red')+
+       labs(x = 'Wine level',y = 'citric acid '
+       ,title = 'Wine level and citric acid Relationship')
+  
+```
+
+the quality level increase with citric acid increase
+
+```{r echo=FALSE}
+#plot the relationship between sulphates and alcohol 
+ggplot(aes(x=alcohol,y=sulphates),data=df) +
+  geom_point(alpha=0.5)
+```
+
+there is a little correlation between alcohol and sulphates 
+
+```{r echo=FALSE}
+#plot the relationship between citric.acid and alcohol 
+ggplot(aes(x=alcohol,y=citric.acid),data=df) +
+  geom_point(alpha=0.5)
+```
+
+ no correlation between alcohol and citric acid.
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+#plot the relationship between free.sulfur.dioxide and total.sulfur.dioxide 
+ggplot(aes(x=free.sulfur.dioxide,y=total.sulfur.dioxide)
+       ,data=df) +geom_point(alpha=0.5)
+```
+
+a strong correlation between total sulfur dioxide and free sulfur dioxide in a positive way 
+
+```{r echo=FALSE}
+#plot the relationship between fixed.acidity and citric.acid 
+ggplot(aes(x=fixed.acidity,y=citric.acid),data=df) +
+  geom_point(alpha=0.5)
+```
+
+a strong correlation between between fixed acidity and citric acid in a positive way 
+
+
+```{r echo=FALSE}
+#plot the relationship between chlorides and sulphates 
+ggplot(aes(x=chlorides,y=sulphates),data=df) +
+  geom_point(alpha=0.5)+
+  coord_cartesian(xlim=c(0,0.25),ylim=c(0,1.2))
+
+```
+
+sulphates and chlorides shows  cluster 
+
+# Bivariate Analysis
+
+### Talk about some of the relationships you observed in this part of the \
+investigation. How did the feature(s) of interest vary with other features in \
+the dataset?
+
+1) what affect the quality of wine the most is alcohol 
+2) a combination of alcohol and other factors affect the quality better than the alcohol alone
+3)sulphates, citric acid and alcohol have a high correlation of quality
+4) volatile acidity have a low correlation of quality
+
+### Did you observe any interesting relationships between the other features \
+(not the main feature(s) of interest)?
+1)chlorides and sulphates has an interesting relationship
+2)a strong positive correlation between citric acid and fixed acidity is founded 
+
+### What was the strongest relationship you found?
+the strongest relationship is the alcohol 
+
+# Multivariate Plots Section
+looking at the relationships of factors with focusing on the quality as a color
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+#plot the relationship between sulphates and alcohol with the quality as a color
+ggplot(aes(y = sulphates, x = alcohol,
+  color = quality),data = df)+
+  labs(x = 'alcohol (%)',y = 'potassium sulphate - g / dm3 '
+  ,title = 'sulphates and Alcohol relationship with quality as a color')+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  scale_y_continuous(limits=c(0.3,1))+
+  facet_wrap(~quality.lvl)
+```
+
+it shows with higher sulphates it produce higher alcohol
+
+```{r echo=FALSE}
+#plot the relationship between density and alcohol with the quality as a color
+ggplot(aes(y = density, x = alcohol,color = quality),data = df) +
+  xlab("alcohol (%)") +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+density does not affect the alcohol
+
+```{r echo=FALSE}
+#plot the relationship between volatile.acidity and alcohol with the quality as a color
+ggplot(aes(y = volatile.acidity, x = alcohol,
+  color = quality),data = df) +
+  xlab("alcohol (%)") +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)  +
+  facet_wrap(~quality.lvl) 
+```
+
+ an Inverse relationship between volatile.acidity and alcohol
+when alcohol increase volatile.acidity decrease
+
+```{r echo=FALSE, Multivariate_Plots,warning=FALSE,message=FALSE}
+#plot the relationship between citric.acid and alcohol with the quality as a color
+ggplot(aes(y = citric.acid, x = alcohol,color = quality),data = df) +
+  xlab("alcohol (%)") +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  scale_y_continuous(limits=c(0.3,1))+
+  facet_wrap(~quality.lvl)
+```
+
+the alcohol increase when citric acid increase
+
+```{r echo=FALSE}
+#plot the relationship between pH and alcohol with the quality as a color
+ggplot(aes(y = pH, x = alcohol,color = quality),data = df) +
+  xlab("alcohol (%)") +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)  +
+  facet_wrap(~quality.lvl) 
+ 
+```
+
+the same result in  volatile.acidity and alcohol with the pH and alcohol which is alcohol increase when pH decrease
+
+```{r echo=FALSE}
+#plot the relationship between total.sulfur.dioxide and alcohol with the quality as a color
+ggplot(data = df,aes(y = total.sulfur.dioxide, x = alcohol,color = quality))+
+  xlab("alcohol (%)") +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  facet_wrap(~quality.lvl) 
+ 
+```
+
+total.sulfur.dioxide decrease produce high alcohol
+
+```{r echo=FALSE}
+#plot the relationship between fixed.acidity and volatile.acidity with the quality as a color
+ggplot(aes(y = fixed.acidity, x = volatile.acidity,
+  color = quality),data = df)+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  facet_wrap(~quality.lvl) 
+
+```
+
+no correlations between fixed.acidity and volatile.acidity
+
+```{r echo=FALSE}
+#plot the relationship between citric.acid and volatile.acidity with the quality as a color
+ggplot(aes(y = citric.acid, x = volatile.acidity,
+  color = quality),data = df)+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  facet_wrap(~quality.lvl) 
+
+```
+
+volatile.acidity decrease and citric.acid increase produce high quality
+
+```{r echo=FALSE}
+#plot the relationship between citric.acid and fixed.acidity with the quality as a color
+ggplot( aes(y = citric.acid, x = fixed.acidity,color = quality),data = df)+
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE,)+
+  facet_wrap(~quality.lvl) 
+  
+```
+
+no correlations between fixed.acidity and citric.acid
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+#plot the relationship between sulphates and chlorides with the quality as a color
+ggplot(aes(x=chlorides, y=sulphates, color=quality), data=df)+
+  facet_wrap(~quality.lvl)+
+  labs(x = 'sodium chloride - g / dm^3 ',y = 'potassium sulphate - g / dm3 '
+  ,title = 'sulphates and chlorides relationship with quality as a color')+
+  geom_point()+
+  xlim(0,0.15)+ ylim(0.25,1)+
+  scale_color_brewer() 
+
+
+```
+
+a range of sulphates and chlorides will produce high quality of wine
+
+# Multivariate Analysis
+
+### Talk about some of the relationships you observed in this part of the \investigation. Were there features that strengthened each other in terms of \looking at your feature(s) of interest?
+1) the combination of chlorides and sulphates affect the quality of wine posivitly
+2) alcohol volatile acidity and sulphates help in making the wine quality better
+3) the correlation of crtic acid and alcohol also affect the wine quality posivitly
+
+### Were there any interesting or surprising interactions between features?
+the interesting interaction is between the chlorides and sulphates 
+
+------
+
+# Final Plots and Summary
+
+
+### Plot One
+```{r echo=FALSE, Plot_One}
+# a plot of quality 
+ggplot(data=df, aes(x=quality)) +
+  geom_bar()+ 
+  labs(x = 'Quality',y = 'Quality value',title = 'Wine Qaulity')
+```
+
+### Description One
+the first plot is for the quality of the wine which is the main feature in this dataset and it shows a high number of values for 5, 6 and 7 and it shows a low number of values for 3 and 4 
+
+### Plot Two
+```{r echo=FALSE, Plot_Three,warning=FALSE,message=FALSE}
+# a plot of sulphates and alcohol relationship
+ggplot(aes(x = alcohol,y = sulphates,color = quality),data = df)+
+  geom_point() +geom_smooth(method = "lm", se = FALSE)+  
+  scale_y_continuous(limits=c(0.3,1)) +
+  facet_wrap(~quality.lvl)+
+  labs(x = 'alcohol (%)',y = 'potassium sulphate - g / dm3 '
+  ,title = 'sulphates and Alcohol relationship with quality as a color')
+  
+```
+
+
+### Description Two
+the third plot shows the sulphate and alcohol is high when the wine quality is high and the alcohol and sulphate together make a high quality wine and affect the quality posivitly
+ 
+### Plot Three
+```{r echo=FALSE, Plot_Two}
+# a plot of quality and alcohol relationship
+ggplot( aes(x=quality,y=alcohol),data=df) + 
+  geom_jitter(alpha = 1/3)  +
+  geom_boxplot(alpha = 1/3,color = 'blue') +
+  stat_summary(fun.y = "mean", geom = "point", color = "red") +
+  labs(x = 'Quality',y = 'Alcohol %'
+  ,title = 'Quality and Alcohol relationship')
+  
+```
+
+### Description Three
+the second plot shows the relationship between quality and alcohol and how much alcohol affect the quality in a positive way and alcohol mean increase with the high quality
+------
+
+# Reflection
+1599 and 12 variabled in the red wine dataset. an analysis was contucted with starting with the main feature in the dataset which is quality because a wine in nothing without its quality also other factors were analysed individualy, after that going to the next important factor that affect the quality is the alcohol also there is other factors that affect the quality that are  citric acid, volatile acidity and sulphates. A strong positive correlation between total and free sulfur dioxide and fixed acidity and citric acid has been founded also a strange realtionship between  sulphates and chlorides that shape a cluster. at the multivariate plots a relationship of other factors with focusing on the quality as a color and it has been contucted that alcohol is the main factor that affect the quality and others factors that help were citric acid, volatile acidity and sulphates
+at the end the limitation of this dataset is that is a large range of quality between 5 and 6 also there is no quality level is given that why it has been created that why in future work i hope to analyse a dataset similar to red wine dataset that has a classification or a level on the quality of the wine.
