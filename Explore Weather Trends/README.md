@@ -11,7 +11,12 @@ In this project I analyzed local and global temperature data and compared the te
 This was done by first, extracting the required data which was the temperature data for the world as well as for Mecca city using SQL. 
 Then creatig 3 line charts (  global average tempreture, Mecca city average tempreture, Mecca vs global average tempreture).
 
-![Mecca Weather Trend]((https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-16.png))
+![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-16.png)
+
+![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-17.png)
+
+![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-18.png)
+
 
 ### Observations
 
