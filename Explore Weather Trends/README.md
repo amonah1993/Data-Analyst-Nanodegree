@@ -13,9 +13,9 @@ Then creatig 3 line charts (  global average tempreture, Mecca city average temp
 
 ![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-16.png)
 
-![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-17.png)
-
 ![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-18.png)
+
+![Mecca Weather Trend](https://github.com/amonah1993/Data-Analyst-Nanodegree/blob/main/Explore%20Weather%20Trends/unnamed-17.png)
 
 
 ### Observations
